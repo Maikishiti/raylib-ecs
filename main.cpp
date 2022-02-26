@@ -1,10 +1,11 @@
 #include "Circle.h"
 #include "include/raylib-cpp.hpp"
 #include "include/raylib.h"
+#include <fstream>
 #include <iostream>
 #include <string>
 
-const bool DEBUG = 0;
+const bool DEBUG = 1;
 
 // Main class <==--==--==--==--==
 int main(void) {
@@ -14,7 +15,7 @@ int main(void) {
   raylib::Window window(wWidth, wHeight, "Raylib");
   SetTargetFPS(60);
 
-  Circle circle({370, 370}, {-3, -3}, 100.f, RED);
+  Circle circle({370, 370}, {-3, -3}, 100.f, RED, "Circle 1");
 
   while (!window.ShouldClose()) {
 
@@ -27,16 +28,16 @@ int main(void) {
 
     window.ClearBackground(RAYWHITE);
     circle.Draw();
+    DrawFPS(0, 0);
 
-    if (DEBUG) {
-      char text[20];
-      sprintf(text, "%.2f : %.2f", circle.getX(), circle.getY());
-      float textSize = MeasureText(text, 20);
+    // if (DEBUG) {
+    //   char text[20];
+    //   sprintf(text, "%.2f : %.2f", circle.getX(), circle.getY());
+    //   float textSize = MeasureText(text, 20);
 
-      DrawFPS(0, 0);
-      raylib::DrawText(text, circle.getX() - textSize / 2, circle.getY(), 20,
-                       WHITE);
-    }
+    //   raylib::DrawText(text, circle.getX() - textSize / 2, circle.getY(), 20,
+    //                    WHITE);
+    // }
 
     EndDrawing();
   }

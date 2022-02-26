@@ -1,14 +1,18 @@
 #include "Circle.h"
+#include <string>
 
 Circle::Circle(raylib::Vector2 position, raylib::Vector2 velocity, float radius,
-               raylib::Color color)
+               raylib::Color color, std::string name)
     : m_position(position), m_velocity(velocity), m_radius(radius),
-      m_color(color) {}
+      m_color(color), m_name(name) {}
 Circle::~Circle() noexcept {}
 
 // Tick <==
 void Circle::Update() { m_position += m_velocity; }
-void Circle::Draw() { DrawCircleV(m_position, m_radius, m_color); }
+void Circle::Draw() {
+  DrawCircleV(m_position, m_radius, m_color);
+  drawName();
+}
 void Circle::Tick() {
   Update();
   Draw();
@@ -37,6 +41,11 @@ void Circle::collide(float xy, bool bX) {
       setVY(getVY() * -1);
     }
   }
+}
+
+void Circle::drawName() {
+  float nameSize = MeasureText(m_name.c_str(), 20);
+  raylib::DrawText(m_name.c_str(), getX() - nameSize / 2, getY(), 20, WHITE);
 }
 
 // Getters and Setters <==
